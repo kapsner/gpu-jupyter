@@ -13,6 +13,16 @@ RUN set -ex \
  && apt-get -y install htop apt-utils iputils-ping graphviz libgraphviz-dev openssh-client \
  && pip install --no-cache-dir $buildDeps
 
+######################################################
+# Add our tirutils library here
+ADD ./addfolder /opt/
+RUN cd /opt/tirutils && \
+    pip install --no-cache-dir -e .
+
+ADD ./cfg/requirements.txt /opt/
+RUN pip install --no-cache-dir -r /opt/requirements.txt
+######################################################
+
 # Install various extensions
 RUN fix-permissions $CONDA_DIR
 
