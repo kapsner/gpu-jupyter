@@ -129,6 +129,7 @@ RUN set -x && \
     conda config --system --set auto_update_conda false && \
     conda config --system --set show_channel_urls true && \
     if [[ "${PYTHON_VERSION}" != "default" ]]; then mamba install --quiet --yes python="${PYTHON_VERSION}"; fi && \
+    # Pin major.minor version of python
     mamba list python | grep '^python ' | tr -s ' ' | cut -d ' ' -f 1,2 >> "${CONDA_DIR}/conda-meta/pinned" && \
     # Using conda to update all packages: https://github.com/mamba-org/mamba/issues/1092
     conda update --all --quiet --yes && \
@@ -176,14 +177,14 @@ CMD ["start-notebook.sh"]
 # Copy local files as late as possible to avoid cache busting
 COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
 # Currently need to have both jupyter_notebook_config and jupyter_server_config to support classic and lab
-COPY jupyter_notebook_config.py /etc/jupyter/
+COPY jupyter_server_config.py /etc/jupyter/
 
 # Fix permissions on /etc/jupyter as root
 USER root
 
-# Prepare upgrade to JupyterLab V3.0 #1205
-RUN sed -re "s/c.NotebookApp/c.ServerApp/g" \
-    /etc/jupyter/jupyter_notebook_config.py > /etc/jupyter/jupyter_server_config.py && \
+# Legacy for Jupyter Notebook Server, see: [#1205](https://github.com/jupyter/docker-stacks/issues/1205)
+RUN sed -re "s/c.ServerApp/c.NotebookApp/g" \
+    /etc/jupyter/jupyter_server_config.py > /etc/jupyter/jupyter_notebook_config.py && \
     fix-permissions /etc/jupyter/
 
 # Switch back to jovyan to avoid accidental container runs as root
@@ -212,15 +213,13 @@ RUN apt-get update --yes && \
     tzdata \
     unzip \
     vim-tiny \
+    # Inkscape is installed to be able to convert SVG files
+    inkscape \
     # git-over-ssh
     openssh-client \
-    # TODO: check if these are needed and describe
-    inkscape \
-    libsm6 \
-    libxext-dev \
-    libxrender1 \
-    lmodern \
-    netcat \
+    # less is needed to run help in R
+    # see: https://github.com/jupyter/docker-stacks/issues/1588
+    less \
     # nbconvert dependencies
     # https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex
     texlive-xetex \
@@ -246,9 +245,15 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 USER root
 
-# ffmpeg for matplotlib anim & dvipng+cm-super for latex labels
 RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends ffmpeg dvipng cm-super && \
+    apt-get install --yes --no-install-recommends \
+    # for cython: https://cython.readthedocs.io/en/latest/src/quickstart/install.html
+    build-essential \
+    # for latex labels
+    cm-super \
+    dvipng \
+    # for matplotlib anim
+    ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 USER ${NB_UID}
