@@ -8,9 +8,9 @@ import stat
 
 
 c = get_config()  # noqa: F821
-c.ServerApp.ip = "0.0.0.0"
-c.ServerApp.port = int(os.getenv("JPY_PORT"))
-c.ServerApp.open_browser = False
+c.NotebookApp.ip = "0.0.0.0"
+c.NotebookApp.port = int(os.getenv("JPY_PORT"))
+c.NotebookApp.open_browser = False
 
 # https://github.com/jupyter/notebook/issues/3130
 c.FileContentsManager.delete_to_trash = False
@@ -49,7 +49,7 @@ if "GEN_CERT" in os.environ:
     )
     # Restrict access to the file
     os.chmod(pem_file, stat.S_IRUSR | stat.S_IWUSR)
-    c.ServerApp.certfile = pem_file
+    c.NotebookApp.certfile = pem_file
 
 # Change default umask for all subprocesses of the notebook server if set in
 # the environment
