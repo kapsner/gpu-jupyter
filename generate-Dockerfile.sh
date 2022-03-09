@@ -69,7 +69,7 @@ echo "
 cat $STACKS_DIR/base-notebook/Dockerfile | grep -v 'BASE_CONTAINER' | grep -v 'FROM $ROOT_CONTAINER' >> $DOCKERFILE
 
 # copy files that are used during the build:
-#cp $STACKS_DIR/base-notebook/jupyter_notebook_config.py .build/
+cp $STACKS_DIR/base-notebook/jupyter_notebook_config.py .build/
 cp $STACKS_DIR/base-notebook/fix-permissions .build/
 cp $STACKS_DIR/base-notebook/start.sh .build/
 cp $STACKS_DIR/base-notebook/start-notebook.sh .build/
