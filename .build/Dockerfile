@@ -12,6 +12,9 @@ LABEL authors="Christoph Schranz <christoph.schranz@salzburgresearch.at>, Mathem
 # This is a concatenated Dockerfile, the maintainers of subsequent sections may vary.
 RUN chmod 1777 /tmp && chmod 1777 /var/tmp
 
+# https://forums.developer.nvidia.com/t/notice-cuda-linux-repository-key-rotation/212772
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+
 ############################################################################
 #################### Dependency: jupyter/base-image ########################
 ############################################################################
