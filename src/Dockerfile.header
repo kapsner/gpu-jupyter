@@ -6,6 +6,6 @@ LABEL authors="Christoph Schranz <christoph.schranz@salzburgresearch.at>, Mathem
 RUN chmod 1777 /tmp && chmod 1777 /var/tmp
 
 # https://forums.developer.nvidia.com/t/notice-cuda-linux-repository-key-rotation/212772
-RUN apt install -y wget --no-install-recommends
+RUN apt-get install -y wget --no-install-recommends
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/$distro/$arch/cuda-keyring_1.0-1_all.deb && \
     dpkg -i cuda-keyring_1.0-1_all.deb
