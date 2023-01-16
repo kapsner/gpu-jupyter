@@ -12,4 +12,4 @@ fi
 ./generate-Dockerfile.sh --python-only --password $PW --commit cf5a7ab55638d7efcb074302e8cb74bded330b3a
 
 # change the default port of jupyter to be read from environment variable
-sed -i -e 's/8888/int(os.getenv("JPY_PORT"))/g' ./.build/jupyter_notebook_config.py
+sed -i -e 's/8888/int(os.getenv("JPY_PORT"))/g' ./.build/jupyter_server_config.py
