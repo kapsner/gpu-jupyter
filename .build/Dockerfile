@@ -398,12 +398,9 @@ RUN set -ex \
 
 ######################################################
 # relevant for python debugger
-RUN mamba install --quiet --yes \
-    'debugpy'\
-    'xeus-python' && \
-    mamba clean --all -f -y && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+RUN pip install --no-cache-dir \
+    debugpy \
+    xeus-python
 # add our requirements
 ADD ./cfg/requirements.txt /opt/
 RUN pip install --no-cache-dir -r /opt/requirements.txt
