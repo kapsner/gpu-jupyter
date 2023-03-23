@@ -398,6 +398,12 @@ RUN set -ex \
 
 ######################################################
 # relevant for python debugger
+RUN mamba install --quiet --yes \
+    'debugpy'\
+    'xeus-python' && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 RUN pip install --no-cache-dir \
     xeus-python \
     debugpy
