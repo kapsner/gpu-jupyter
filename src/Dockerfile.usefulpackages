@@ -20,7 +20,8 @@ RUN set -ex \
 ######################################################
 # Add our tirutils library here
 ADD ./addfolder /opt/
-RUN cd /opt/tirutils && \
+RUN fix-permissions /opt/tirutils && \
+    cd /opt/tirutils && \
     pip install --no-cache-dir -e .
 
 ADD ./cfg/requirements.txt /opt/
