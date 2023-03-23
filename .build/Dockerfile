@@ -398,10 +398,10 @@ RUN set -ex \
 
 ######################################################
 # relevant for python debugger
-RUN conda install -c conda-forge xeus-python -y && \
-    conda clean --all -f -y && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+# RUN conda install -c conda-forge xeus-python -y && \
+#     conda clean --all -f -y && \
+#     fix-permissions $CONDA_DIR && \
+#     fix-permissions /home/$NB_USER
 # add our requirements
 ADD ./cfg/requirements.txt /opt/
 RUN pip install --no-cache-dir -r /opt/requirements.txt
