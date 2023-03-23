@@ -399,7 +399,7 @@ RUN set -ex \
 ######################################################
 # Add our tirutils library here
 ADD ./addfolder /opt/
-RUN fix-permissions /opt/tirutils && \
+RUN chmod -R 777 /opt/tirutils && \
     cd /opt/tirutils && \
     pip install --no-cache-dir -e .
 
