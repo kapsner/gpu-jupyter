@@ -398,10 +398,11 @@ RUN set -ex \
 
 ######################################################
 # Add our tirutils library here
-ADD ./addfolder /opt/
-RUN chmod -R 777 /opt/tirutils && \
+ADD ./addfolder "/home/${NB_USER}"
+RUN fix-permissions "/home/${NB_USER}/tirutils" && \
     cd /opt/tirutils && \
-    pip install --no-cache-dir -e .
+    pip install --no-cache-dir -e . && \
+    rm -rf "/home/${NB_USER}/tirutils"
 
 ADD ./cfg/requirements.txt /opt/
 RUN pip install --no-cache-dir -r /opt/requirements.txt
