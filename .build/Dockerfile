@@ -397,6 +397,10 @@ RUN set -ex \
  && fix-permissions "/home/${NB_USER}"
 
 ######################################################
+# relevant for python debugger
+RUN pip install --no-cache-dir \    
+    xeus-python \
+    debugpy
 ADD ./cfg/requirements.txt /opt/
 RUN pip install --no-cache-dir -r /opt/requirements.txt
 ######################################################
