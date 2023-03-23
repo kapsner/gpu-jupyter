@@ -397,14 +397,6 @@ RUN set -ex \
  && fix-permissions "/home/${NB_USER}"
 
 ######################################################
-# Add our tirutils library here
-ADD ./addfolder "/home/${NB_USER}"
-RUN fix-permissions "/home/${NB_USER}/tirutils" && \
-    chmod -R 777 fix-permissions "/home/${NB_USER}/tirutils" && \
-    cd "/home/${NB_USER}/tirutils" && \
-    pip install --no-cache-dir -e . && \
-    rm -rf "/home/${NB_USER}/tirutils"
-
 ADD ./cfg/requirements.txt /opt/
 RUN pip install --no-cache-dir -r /opt/requirements.txt
 ######################################################
