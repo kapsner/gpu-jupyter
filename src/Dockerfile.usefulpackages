@@ -19,7 +19,7 @@ RUN set -ex \
 
 ######################################################
 # relevant for python debugger
-RUN conda install -c conda-forge xeus-python debugpy -y && \
+RUN conda install -c conda-forge xeus-python -y && \
     conda clean --all -f -y && \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
