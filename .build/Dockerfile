@@ -435,6 +435,9 @@ RUN pip install --no-cache-dir \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+# update library path
+ENV LD_LIBRARY_PATH=${CONDA_DIR}/lib:$LD_LIBRARY_PATH
+
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
 
