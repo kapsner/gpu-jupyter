@@ -398,9 +398,8 @@ RUN set -ex \
 
 ######################################################
 # relevant for python debugger
-RUN conda install -c conda-forge nodejs
 RUN pip install --no-cache-dir \
-    xeus-python
+    xeus-python==0.13.2
 # add our requirements
 ADD ./cfg/requirements.txt /opt/
 RUN pip install --no-cache-dir -r /opt/requirements.txt
