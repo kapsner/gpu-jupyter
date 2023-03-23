@@ -399,8 +399,7 @@ RUN set -ex \
 ######################################################
 # relevant for python debugger
 RUN "${CONDA_DIR}/bin/pip" install --no-cache-dir \    
-    xeus-python \
-    debugpy
+    xeus-python
 ADD ./cfg/requirements.txt /opt/
 RUN "${CONDA_DIR}/bin/pip" install --no-cache-dir -r /opt/requirements.txt
 ######################################################
