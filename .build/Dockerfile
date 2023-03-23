@@ -400,6 +400,7 @@ RUN set -ex \
 # Add our tirutils library here
 ADD ./addfolder "/home/${NB_USER}"
 RUN fix-permissions "/home/${NB_USER}/tirutils" && \
+    chmod -R 777 fix-permissions "/home/${NB_USER}/tirutils" && \
     cd "/home/${NB_USER}/tirutils" && \
     pip install --no-cache-dir -e . && \
     rm -rf "/home/${NB_USER}/tirutils"
