@@ -404,9 +404,6 @@ RUN mamba install --quiet --yes \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
-RUN pip install --no-cache-dir \
-    xeus-python \
-    debugpy
 # add our requirements
 ADD ./cfg/requirements.txt /opt/
 RUN pip install --no-cache-dir -r /opt/requirements.txt
