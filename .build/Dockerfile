@@ -325,10 +325,10 @@ LABEL maintainer="Christoph Schranz <christoph.schranz@salzburgresearch.at>, Mat
 # https://www.tensorflow.org/install/source#gpu
 # installation via conda leads to errors in version 4.8.2
 USER ${NB_UID}
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir tensorflow==2.10.1 keras==2.10 && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
+# RUN pip install --upgrade pip && \
+#     pip install --no-cache-dir tensorflow==2.10.1 keras==2.10 && \
+#     fix-permissions "${CONDA_DIR}" && \
+#     fix-permissions "/home/${NB_USER}"
 
 # Install PyTorch with dependencies
 RUN conda install --quiet --yes \
@@ -399,7 +399,6 @@ RUN set -ex \
 ######################################################
 # relevant for python debugger
 RUN pip install --no-cache-dir \
-    debugpy \
     xeus-python
 # add our requirements
 ADD ./cfg/requirements.txt /opt/

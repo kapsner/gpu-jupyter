@@ -20,7 +20,6 @@ RUN set -ex \
 ######################################################
 # relevant for python debugger
 RUN pip install --no-cache-dir \
-    debugpy \
     xeus-python
 # add our requirements
 ADD ./cfg/requirements.txt /opt/
